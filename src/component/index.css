@@ -1,0 +1,29 @@
+:where([data-part="accordion-content"]) {
+  --grid-transition: grid-template-rows var(--accordion-duration, 200ms)
+    var(--accordion-easing, ease);
+
+  /* flips after collapse */
+  --visibility-transition: visibility 0s linear var(--accordion-duration, 200ms);
+
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: none;
+
+  &[data-state="open"] {
+    /* flips immediately on open */
+    --visibility-transition: visibility 0s;
+
+    grid-template-rows: 1fr;
+    visibility: visible;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: var(--grid-transition), var(--visibility-transition);
+  }
+}
+
+:where([data-part="accordion-content-clip"]) {
+  overflow: hidden;
+  min-block-size: 0;
+}
